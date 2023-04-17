@@ -1,0 +1,27 @@
+.top-nav{
+    height: 85px;
+    background-image: linear-gradient(#0066cc, #80bfff);
+}
+
+.top-nav h1{
+    font-size: 40px;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.search h2{
+    font-size: 25px;
+}
+
+.city-list{
+   display: flex;
+}
+
+.city-list ul li{
+    padding: 10px;
+}
+
+.city-list ul li button{
+   padding: 5px 10px; 
+}
