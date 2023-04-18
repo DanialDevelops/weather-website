@@ -30,7 +30,13 @@ function getFiveDay(fiveDay) {
     });
 }
 
-function updateLocalStorage() {}
+function updateLocalStorage(cityName) {
+var history = JSON.parse(localStorage.getItem("history")) || [];
+if (history.indexOf(cityName) === -1) {
+  history.push(cityName);
+}
+localStorage.setItem("history", JSON.stringify(history));
+}
 
 function setCurrentCon(data) {
   var cityName = data.city.name;
