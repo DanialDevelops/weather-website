@@ -25,3 +25,20 @@
 .city-list ul li button{
    padding: 5px 10px; 
 }
+
+.five-day{
+    font-size: 20px;
+    
+}
+
+.weather-card{
+    display: flex;
+}
+
+.weather-card p{
+  padding: 10px;
+}
+
+.weather-card div{
+    padding: 10px;
+}
