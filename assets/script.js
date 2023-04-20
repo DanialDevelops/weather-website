@@ -109,6 +109,19 @@ function getHistory() {
 function displayHistory() {
   var history = JSON.parse(localStorage.getItem("history")) || [];
   var historyEl = document.querySelector("#history");
-}
+  historyEl.innerHTML = "";
+  for (var i = 0; i < history.length; i++) {
+    var cityName = history[i];
+    var buttonEl = document.createElement("button");
+    buttonEl.textContent = cityName;
+    buttonEl.addEventListener("click", function() {
+      inputEl.value = this.textContent;
+      getWeather(event);
+    });
+    historyEl.appendChild(buttonEl);
+}}
+
+getHistory();
+displayHistory();
 
 document.addEventListener("submit", getWeather)
