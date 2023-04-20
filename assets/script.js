@@ -16,6 +16,7 @@ function getWeather(event) {
       var fiveDay = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
       getFiveDay(fiveDay);
       setCurrentCon(data);
+      updateLocalStorage(cityName)
     });
 }
 
@@ -31,11 +32,11 @@ function getFiveDay(fiveDay) {
 }
 
 function updateLocalStorage(cityName) {
-var history = JSON.parse(localStorage.getItem("history")) || [];
-if (history.indexOf(cityName) === -1) {
-  history.push(cityName);
-}
-localStorage.setItem("history", JSON.stringify(history));
+  var history = JSON.parse(localStorage.getItem("history")) || [];
+  if (history.indexOf(cityName) === -1) {
+    history.push(cityName);
+  }
+  localStorage.setItem("history", JSON.stringify(history));
 }
 
 function setCurrentCon(data) {
@@ -44,6 +45,8 @@ function setCurrentCon(data) {
   var humidity = data.list[0].main.humidity;
   var windSpeed = data.list[0].wind.speed;
   var dateObj = new Date(data.list[0].dt_txt);
+  var weatherIcon = data.list[0].weather[0].icon;
+  var iconUrl = "https://openweathermap.org/img/w/" + weatherIcon + ".png";
   var month = dateObj.getMonth() + 1;
   var day = dateObj.getDate();
   var year = dateObj.getFullYear();
@@ -55,6 +58,7 @@ function setCurrentCon(data) {
   document.querySelector("#humidity").textContent = "Humidity: " + humidity;
   ("%");
   document.querySelector("#Wind").textContent = "Wind: " + windSpeed;
+  document.querySelector("#current-weather .weather-icon").src = iconUrl
 }
 
 function setFiveDay(data) {
@@ -73,6 +77,8 @@ function setFiveDay(data) {
     var temperature = data.list[i].main.temp;
     var humidity = data.list[i].main.humidity;
     var windSpeed = data.list[i].wind.speed;
+    var weatherIcon = data.list[i].weather[0].icon;
+    var iconUrl = "https://openweathermap.org/img/w/" + weatherIcon + ".png";
 
     var forecastString =
       date +
@@ -81,13 +87,28 @@ function setFiveDay(data) {
       ", Humidity: " +
       humidity +
       ", Wind Speed: " +
-      windSpeed +
-      " ";
+      windSpeed + "<img src='https://openweathermap.org/img/w/" + weatherIcon + ".png'>";
 
-    document.querySelector("#weather-card").textContent += forecastString;
+    document.querySelector("#weather-card").innerHTML += forecastString;
   }
 }
 
-function getHistory() {}
+function getHistory() {
+  var history = JSON.parse(localStorage.getItem("history")) || [];
+  var historyList = document.querySelector("#history-list");
+  historyList.innerHTML = "";
 
-document.addEventListener("submit", getWeather);
+  for (var i = 0; i < history.length; i++) {
+    var cityName = history[i];
+    var historyItem = document.createElement("li");
+    historyItem.textContent = cityName;
+    historyList.appendChild(historyItem);
+}
+}
+
+function displayHistory() {
+  var history = JSON.parse(localStorage.getItem("history")) || [];
+  var historyEl = document.querySelector("#history");
+}
+
+document.addEventListener("submit", getWeather)
