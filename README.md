@@ -13,7 +13,7 @@ In this project I worked on making a weather webpage that will display the curre
 
 -worked with weather icons and adding them to the page
 
--deployed link:
+-deployed link: https://danialdevelops.github.io/weather-website/
 
 
 ### Image example of my site
